@@ -1,0 +1,11 @@
+type Profile @entity {
+  id: String!
+  creator: Bytes!
+  to: Bytes!
+  handle: String!
+  imageURI: String!
+  followModule: Bytes!
+  followModuleReturnData: Bytes!
+  followNFTURI: String!
+  followerCount: Int!
+}
