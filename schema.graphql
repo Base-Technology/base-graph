@@ -7,5 +7,7 @@ type Profile @entity {
   followModule: Bytes!
   followModuleReturnData: Bytes!
   followNFTURI: String!
+  
+  followers: [Profile!]!
   followerCount: Int!
 }

@@ -1,3 +1,4 @@
+import { decodeUint256 } from "./util"
 import {
   Followed as FollowedEvent,
   ProfileCreated as ProfileCreatedEvent,
@@ -15,17 +16,25 @@ export function handleProfileCreated(event: ProfileCreatedEvent): void {
   profile.followModule = event.params.followModule
   profile.followModuleReturnData = event.params.followModuleReturnData
   profile.followNFTURI = event.params.followNFTURI
+  profile.followers = new Array<string>()
   profile.followerCount = 0
   profile.save()
 }
 
 export function handleFollowed(event: FollowedEvent): void {
-  event.params.profileIds.forEach(profileId => {
-    let profile = Profile.load(profileId.toHex())
+  for (let i = 0; i < event.params.profileIds.length; i++) {
+    let profile = Profile.load(event.params.profileIds[i].toHex())
     if (profile == null) {
       return
     }
+    let follower = Profile.load(decodeUint256(event.params.followModuleDatas[i]).toHex())
+    if (follower == null) {
+      return
+    }
+    let followers = profile.followers
+    followers.push(follower.id)
+    profile.followers = followers
     profile.followerCount++
     profile.save()
-  })
+  }
 }
