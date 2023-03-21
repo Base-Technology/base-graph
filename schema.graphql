@@ -10,4 +10,34 @@ type Profile @entity {
   
   followers: [Profile!]!
   followerCount: Int!
+  followings: [Profile!]!
+  publications: [Publication!]!
+}
+
+type Publication @entity {
+  id: String!
+  profileId: BigInt!
+  pubId: BigInt!
+  contentURI: String!
+  collectModule: Bytes
+  collectModuleReturnData: Bytes
+  referenceModule: Bytes
+  referenceModuleReturnData: Bytes
+  
+  comments: [Comment!]!
+  commentCount: Int!
+}
+
+type Comment @entity {
+  id: String!
+  profileId: BigInt!
+  pubId: BigInt!
+  contentURI: String!
+  profileIdPointed: BigInt!
+  pubIdPointed: BigInt!
+  referenceModuleData: Bytes!
+  collectModule: Bytes!
+  collectModuleReturnData: Bytes!
+  referenceModule: Bytes!
+  referenceModuleReturnData: Bytes!
 }
