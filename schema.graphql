@@ -11,6 +11,7 @@ type Profile @entity {
   followers: [Profile!]!
   followerCount: Int!
   followings: [Profile!]!
+  followingCount: Int!
   publications: [Publication!]!
 }
 

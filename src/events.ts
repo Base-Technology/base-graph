@@ -23,6 +23,7 @@ export function handleProfileCreated(event: ProfileCreatedEvent): void {
   profile.followers = []
   profile.followerCount = 0
   profile.followings = []
+  profile.followingCount = 0
   profile.publications = []
   profile.save()
 }
@@ -45,6 +46,7 @@ export function handleFollowed(event: FollowedEvent): void {
     let followings = follower.followings
     followings.push(profile.id)
     follower.followings = followings
+    follower.followingCount++
     follower.save()
   }
 }
