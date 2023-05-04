@@ -12,7 +12,7 @@ import {
 } from "../generated/schema"
 
 export function handleProfileCreated(event: ProfileCreatedEvent): void {
-  let profile = new Profile(event.params.profileId.toHex())
+  let profile = new Profile(event.params.profileId.toString())
   profile.creator = event.params.creator
   profile.to = event.params.to
   profile.handle = event.params.handle
@@ -30,11 +30,11 @@ export function handleProfileCreated(event: ProfileCreatedEvent): void {
 
 export function handleFollowed(event: FollowedEvent): void {
   for (let i = 0; i < event.params.profileIds.length; i++) {
-    let profile = Profile.load(event.params.profileIds[i].toHex())
+    let profile = Profile.load(event.params.profileIds[i].toString())
     if (profile == null) {
       return
     }
-    let follower = Profile.load(decodeUint256(event.params.followModuleDatas[i]).toHex())
+    let follower = Profile.load(decodeUint256(event.params.followModuleDatas[i]).toString())
     if (follower == null) {
       return
     }
@@ -52,7 +52,7 @@ export function handleFollowed(event: FollowedEvent): void {
 }
 
 export function handlePostCreated(event: PostCreatedEvent): void {
-  let publication = new Publication(event.params.profileId.toHex() + "_" + event.params.pubId.toHex())
+  let publication = new Publication(event.params.profileId.toString() + "_" + event.params.pubId.toString())
   publication.profileId = event.params.profileId
   publication.pubId = event.params.pubId
   publication.contentURI = event.params.contentURI
@@ -64,7 +64,7 @@ export function handlePostCreated(event: PostCreatedEvent): void {
   publication.commentCount = 0
   publication.save()
 
-  let profile = Profile.load(event.params.profileId.toHex())
+  let profile = Profile.load(event.params.profileId.toString())
   if (profile == null) {
     return
   }
@@ -88,7 +88,7 @@ export function handleCommentCreated(event: CommentCreatedEvent): void {
   comment.referenceModuleReturnData = event.params.referenceModuleReturnData
   comment.save()
 
-  let publication = Publication.load(event.params.profileIdPointed.toHex() + "_" + event.params.pubIdPointed.toHex())
+  let publication = Publication.load(event.params.profileIdPointed.toString() + "_" + event.params.pubIdPointed.toString())
   if (publication == null) {
     return
   }
@@ -98,7 +98,7 @@ export function handleCommentCreated(event: CommentCreatedEvent): void {
   publication.commentCount++
   publication.save()
 
-  publication = new Publication(event.params.profileId.toHex() + "_" + event.params.pubId.toHex())
+  publication = new Publication(event.params.profileId.toString() + "_" + event.params.pubId.toString())
   publication.profileId = event.params.profileId
   publication.pubId = event.params.pubId
   publication.contentURI = event.params.contentURI
@@ -106,7 +106,7 @@ export function handleCommentCreated(event: CommentCreatedEvent): void {
   publication.commentCount = 0
   publication.save()
 
-  let profile = Profile.load(event.params.profileId.toHex())
+  let profile = Profile.load(event.params.profileId.toString())
   if (profile == null) {
     return
   }
