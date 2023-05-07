@@ -25,6 +25,7 @@ export function handleProfileCreated(event: ProfileCreatedEvent): void {
   profile.followings = []
   profile.followingCount = 0
   profile.publications = []
+  profile.timestamp = event.block.timestamp
   profile.save()
 }
 
@@ -62,6 +63,7 @@ export function handlePostCreated(event: PostCreatedEvent): void {
   publication.referenceModuleReturnData = event.params.referenceModuleReturnData
   publication.comments = []
   publication.commentCount = 0
+  publication.timestamp = event.block.timestamp
   publication.save()
 
   let profile = Profile.load(event.params.profileId.toString())
@@ -86,6 +88,7 @@ export function handleCommentCreated(event: CommentCreatedEvent): void {
   comment.collectModuleReturnData = event.params.collectModuleReturnData
   comment.referenceModule = event.params.referenceModule
   comment.referenceModuleReturnData = event.params.referenceModuleReturnData
+  comment.timestamp = event.block.timestamp
   comment.save()
 
   let publication = Publication.load(event.params.profileIdPointed.toString() + "_" + event.params.pubIdPointed.toString())
@@ -104,6 +107,7 @@ export function handleCommentCreated(event: CommentCreatedEvent): void {
   publication.contentURI = event.params.contentURI
   publication.comments = []
   publication.commentCount = 0
+  publication.timestamp = event.block.timestamp
   publication.save()
 
   let profile = Profile.load(event.params.profileId.toString())

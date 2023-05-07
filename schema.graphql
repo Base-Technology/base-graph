@@ -13,6 +13,8 @@ type Profile @entity {
   followings: [Profile!]!
   followingCount: Int!
   publications: [Publication!]!
+
+  timestamp: BigInt!
 }
 
 type Publication @entity {
@@ -27,6 +29,8 @@ type Publication @entity {
   
   comments: [Comment!]!
   commentCount: Int!
+
+  timestamp: BigInt!
 }
 
 type Comment @entity {
@@ -41,4 +45,6 @@ type Comment @entity {
   collectModuleReturnData: Bytes!
   referenceModule: Bytes!
   referenceModuleReturnData: Bytes!
+
+  timestamp: BigInt!
 }
